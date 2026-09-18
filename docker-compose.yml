@@ -1,0 +1,30 @@
+services:
+
+  app:
+    build: .
+    container_name: connect-app
+    ports:
+      - "3000:3000"
+    volumes:
+    - .:/app
+    - /app/node_modules
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/sportconnect
+
+  postgres:
+    image: postgres:16
+    container_name: connect-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: sportconnect
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
