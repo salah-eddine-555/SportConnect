@@ -1,4 +1,5 @@
 import * as service from '../services/AssocaitionServices.js';
+import render from '../utils/render.js';
 
 
 export const getAssociations = async (req, res) => {
@@ -6,30 +7,30 @@ export const getAssociations = async (req, res) => {
 
         const associations = await service.getAllAssociations();
 
+        const content = await render("/associations/index", {associations});
+
         res.writeHead(200, {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/html'
         });
 
-        res.end(JSON.stringify(associations));
+        res.end(content);
 
     } catch (e) {
 
         res.writeHead(500, {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/html'  
         });
 
-        res.end(JSON.stringify({
-            message: e.message
-        }));
+        res.end(`Error: ${e.message}`);
     }
 };
 
 // export const getAssociationById()
 
-export const getAssociationById = async (req, res) => {
+export const getAssociationById = async (req, res, parms) => {
     try {
 
-        const id = req.url.split('/')[2];
+        const id = parms.id;
 
         const association = await service.getAssociationById(id);
 
@@ -88,14 +89,14 @@ export const createAssociation = async (req, res) => {
 };
 
 
-export const updateAssociation = async (req, res) => {
+export const updateAssociation = async (req, res, parms) => {
 
-    const id = req.url.split('/')[2];
+    const id = parms.id;
 
     let body = '';
 
-    req.on('data', chunk => {
-        body += chunk;
+    req.on('data', data => {
+        body += data;
     });
 
     req.on('end', async () => {
@@ -126,26 +127,21 @@ export const updateAssociation = async (req, res) => {
 };
 
 
-export const deleteAssociation = async (req, res) => {
+export const deleteAssociation = async (req, res, parms) => {
 
     try {
-
-        const id = req.url.split('/')[2];
+        const id = parms.id;
 
         const association = await service.deleteAssociation(id);
 
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
-
         res.end(JSON.stringify(association));
-
-    } catch (e) {
-
-        res.writeHead(500, {
+    }catch (e) {
+       res.writeHead(500, {
             'Content-Type': 'application/json'
         });
-
         res.end(JSON.stringify({
             message: e.message
         }));

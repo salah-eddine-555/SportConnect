@@ -5,7 +5,7 @@ const tableNames = [
     'members',
     'activities',
     'facilities',
-    'associations',
+    'association',
     'registrations',
     'waiting_list'
 ];
@@ -48,9 +48,16 @@ export const create = async (table, data) => {
     
     const columns = columnsTable.rows.map(row => row.column_name);
 
-    if(columns.length !== data.length){ throw new Error("Number of data does not match columns !")}
+    const values = columns.map(c => data[c]);
+
+    if (values.some(value => value === undefined)) {
+        throw new Error("Errure mismatching data !");
+    }
+
+
+    // if(columns.length !== data.length){ throw new Error("Number of data does not match columns !")}
     
-    const champs = data.map((_, index) => `$${index + 1}`);
+    const champs = values.map((_, index) => `$${index + 1}`);
 
     const query =  `
         INSERT INTO ${table} (${columns.join(", ")})
@@ -58,7 +65,7 @@ export const create = async (table, data) => {
         RETURNING *;
     `;
 
-    const result = await pool.query(query, data)
+    const result = await pool.query(query, values)
 
     return result.rows[0];
 }
@@ -77,16 +84,22 @@ export const update = async (table, id, data) => {
 
     const columns = columnsTable.rows.map(row => row.column_name);
 
-    if(columns.length !== data.length){ throw new Error("Number of data dont mismatch columns! ")}
+    const valuesData = columns.map(c => data[c]);
+
+    if(valuesData.some(v => v === undefined)){
+        throw new Error("Erreur");
+    }
+
+    // if(columns.length !== data.length){ throw new Error("Number of data dont mismatch columns! ")}
 
     const setValues = columns.map((column, index) => {
         return `${column}  = $${index + 1}`;
     });
 
-    const values = [...data, id];
+    const values = [...valuesData, id];
 
     const query = `UPDATE ${table} SET ${setValues.join(", ")}
-                    WHERE id = $${data.length + 1} RETURNING  *; `;
+                    WHERE id = $${valuesData.length + 1} RETURNING  *; `;
     
     const result = await pool.query(query, values)
 
@@ -98,7 +111,7 @@ export const remove = async(table, id) => {
     
     if(!tableNames.includes(table)){throw new Error("Invalid table name !")}
 
-    const query =  `DELETE FROM ${table} WHERE id = $1, RETURNING *; `;
+    const query =  `DELETE FROM ${table} WHERE id = $1 RETURNING *; `;
 
     const result = await pool.query(query, [id]);
 

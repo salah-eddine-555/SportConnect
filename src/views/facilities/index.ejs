@@ -1,0 +1,163 @@
+<div class="facilities-page">
+
+    <div class="page-header">
+        <div>
+            <h1>Facilities</h1>
+            <p>Gestion des complexes sportifs</p>
+        </div>
+
+       <button
+            type="button"
+            id="addFacilityBtn"
+            class="btn btn-primary"
+        >
+            + Ajouter une facility
+        </button>
+    </div>
+
+    <div class="table-container">
+        <table class="facilities-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Capacité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% facilities.forEach(facility => { %>
+                    <tr>
+                        <td>
+                            <span class="facility-id">
+                                <%= facility.id %>
+                            </span>
+                        </td>
+
+                        <td>
+                            <strong><%= facility.name %></strong>
+                        </td>
+
+                        <td>
+                            <span class="capacity">
+                                <%= facility.capacity %> places
+                            </span>
+                        </td>
+
+                        <td>
+                            <div class="actions">
+
+                                <a
+                                    href="/facilities/<%= facility.id %>"
+                                    class="btn btn-view"
+                                >
+                                    Voir
+                                </a>
+
+                              <button
+                                    type="button"
+                                    class="btn btn-edit edit-facility-btn"
+                                    data-id="<%= facility.id %>"
+                                    data-name="<%= facility.name %>"
+                                    data-capacity="<%= facility.capacity %>"
+                                >
+                                    Modifier
+                                </button>
+
+                                <form action="/facilities/<%= facility.id %>/delete" method="POST"> 
+                                     <button type="submit">delete</button>
+                                </form>
+                             
+                               
+                                       
+                                
+
+                            </div>
+                        </td>
+                    </tr>
+
+                <% }) %>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+<!-- modal  -->
+ <div id="facilityModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2 id="modalTitle">Ajouter une facility</h2>
+
+            <button
+                type="button"
+                id="closeModal"
+                class="modal-close"
+            >
+                &times;
+            </button>
+        </div>
+
+        <form id="facilityForm">
+
+            <div class="form-group">
+
+                <label for="facilityName">
+                    Nom
+                </label>
+
+                <input
+                    type="text"
+                    id="facilityName"
+                    name="name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="facilityCapacity">
+                    Capacité
+                </label>
+
+                <input
+                    type="number"
+                    id="facilityCapacity"
+                    name="capacity"
+                    min="1"
+                    required
+                >
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelModal"
+                    class="btn btn-secondary"
+                >
+                    Annuler
+                </button>
+
+                <button
+                    type="submit"
+                    id="submitFacility"
+                    class="btn btn-primary"
+                >
+                    Enregistrer
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<script src="/js/facilities.js"></script>

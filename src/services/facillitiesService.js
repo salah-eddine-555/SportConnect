@@ -14,6 +14,7 @@ export const getFacillitieById = (id) => {
 
 
 export const createFacillitie = (data) => {
+    // console.log(data); return;
     return repository.create('facilities', data);
 };
 

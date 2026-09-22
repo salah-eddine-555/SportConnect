@@ -1,0 +1,230 @@
+<div class="associations-page">
+
+```
+<!-- Page header -->
+<div class="page-header">
+
+    <div>
+        <h1>Associations</h1>
+        <p>Gestion des associations sportives</p>
+    </div>
+
+    <button
+        type="button"
+        id="addAssociationBtn"
+        class="btn btn-primary"
+    >
+        + Ajouter une association
+    </button>
+
+</div>
+
+
+<!-- Associations cards -->
+<div class="associations-grid">
+
+    <% associations.forEach(association => { %>
+
+        <div class="association-card">
+
+            <div class="association-card-header">
+
+                <div>
+                    <h2>
+                        <%= association.name %>
+                    </h2>
+
+                    <span class="association-id">
+                        ID : <%= association.id %>
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="association-info">
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Email
+                    </span>
+
+                    <span class="info-value">
+                        <%= association.email %>
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Adresse
+                    </span>
+
+                    <span class="info-value">
+                        <%= association.address %>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Actions -->
+            <div class="association-actions">
+
+                <a
+                    href="/associations/<%= association.id %>"
+                    class="btn btn-view"
+                >
+                    Voir
+                </a>
+
+
+                <button
+                    type="button"
+                    class="btn btn-edit edit-association-btn"
+                    data-id="<%= association.id %>"
+                    data-name="<%= association.name %>"
+                    data-email="<%= association.email %>"
+                    data-address="<%= association.address %>"
+                >
+                    Modifier
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-delete delete-association-btn"
+                    data-id="<%= association.id %>"
+                >
+                    Supprimer
+                </button>
+
+            </div>
+
+        </div>
+
+    <% }) %>
+
+</div>
+```
+
+</div>
+
+<!-- ================================================= -->
+
+<!-- MODAL ADD / EDIT ASSOCIATION -->
+
+<!-- ================================================= -->
+
+<div id="associationModal" class="modal">
+
+```
+<div class="modal-content">
+
+    <div class="modal-header">
+
+        <h2 id="modalTitle">
+            Ajouter une association
+        </h2>
+
+        <button
+            type="button"
+            id="closeModal"
+            class="modal-close"
+        >
+            &times;
+        </button>
+
+    </div>
+
+
+    <form id="associationForm">
+
+        <!-- Name -->
+        <div class="form-group">
+
+            <label for="associationName">
+                Nom
+            </label>
+
+            <input
+                type="text"
+                id="associationName"
+                name="name"
+                required
+            >
+
+        </div>
+
+
+        <!-- Email -->
+        <div class="form-group">
+
+            <label for="associationEmail">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="associationEmail"
+                name="email"
+                required
+            >
+
+        </div>
+
+
+        <!-- Address -->
+        <div class="form-group">
+
+            <label for="associationAddress">
+                Adresse
+            </label>
+
+            <input
+                type="text"
+                id="associationAddress"
+                name="address"
+                required
+            >
+
+        </div>
+
+
+        <!-- Modal actions -->
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                id="cancelModal"
+                class="btn btn-secondary"
+            >
+                Annuler
+            </button>
+
+
+            <button
+                type="submit"
+                id="submitAssociation"
+                class="btn btn-primary"
+            >
+                Enregistrer
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+```
+
+</div>
+
+<!-- JavaScript -->
+
+<script src="/js/association.js"></script>
+

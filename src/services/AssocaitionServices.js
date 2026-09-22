@@ -1,21 +1,21 @@
 import * as repository from '../repositories/Repository.js';
 
 export const getAllAssociations = () => {
-    return repository.findAll('associations');
+    return repository.findAll('association');
 };
 
 export const getAssociationById = (id) => {
-    return repository.findById('associations', id);
+    return repository.findById('association', id);
 };
 
 export const createAssociation = (data) => {
-    return repository.create('associations', data);
+    return repository.create('association', data);
 };
 
 export const updateAssociation = (id, data) => {
-    return repository.update('associations', id, data);
+    return repository.update('association', id, data);
 };
 
 export const deleteAssociation = (id) => {
-    return repository.remove('associations', id);
+    return repository.remove('association', id);
 };

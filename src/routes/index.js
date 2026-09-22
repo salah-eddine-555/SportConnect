@@ -1,23 +1,26 @@
-import { facilitiesRoutes } from './facilitiesRoutes.js';
-import { activitiesRoutes } from './activitiesRoutes.js';
-import { associationsRoutes } from './associationsRoutes.js';
+import FindMyWay from 'find-my-way';
+import * as facilitiesController from '../controllers/facilitiesController.js';
+import {getHome} from '../controllers/homeController.js';
+import * as associationController from '../controllers/AssociationController.js';
+
+const router = FindMyWay();
 
 
-export const routes = (req, res) => {
+router.get("/" , getHome);
 
-    let handled;
+router.get('/facilities',facilitiesController.getFacillities);
+router.get("/facilities/:id", facilitiesController.getFacillitieById)
+router.post('/facilities',facilitiesController.createFacillitie);
+router.put('/facilities/:id',facilitiesController.updateFacillitie);
+router.post('/facilities/:id/delete', facilitiesController.deleteFacillitie);
 
-    handled = facilitiesRoutes(req, res);
-    if (handled) return true;
 
-    handled = activitiesRoutes(req, res);
-    if (handled) return true;
+// les routes pour la gestion des assocaitions 
+router.get('/associations',associationController.getAssociations);
+router.get('/associations/:id', associationController.getAssociationById);
+router.post('/associations',associationController.createAssociation);
+router.put('/associations/:id',associationController.updateAssociation);
+router.delete('/associations/:id', associationController.deleteAssociation);
 
-    handled = associationsRoutes(req, res);
-    if (handled) return true;
 
-    handled = usersRoutes(req, res);
-    if (handled) return true;
-
-    return false;
-};
+export default router;
