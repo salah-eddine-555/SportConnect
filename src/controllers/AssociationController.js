@@ -1,5 +1,7 @@
 import * as service from '../services/AssocaitionServices.js';
 import render from '../utils/render.js';
+import {getAllFacillities} from '../services/facillitiesService.js';
+
 
 
 export const getAssociations = async (req, res) => {
@@ -27,18 +29,22 @@ export const getAssociations = async (req, res) => {
 
 // export const getAssociationById()
 
-export const getAssociationById = async (req, res, parms) => {
+export const getAssociationById = async(req, res, parms) => {
     try {
 
         const id = parms.id;
 
         const association = await service.getAssociationById(id);
+        const activities = await service.getActivitiesByAssociation(id);
+        const facilities = await getAllFacillities();
+
+        const content = await render("/associations/details", {association, activities, facilities});
 
         res.writeHead(200, {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/html'
         });
 
-        res.end(JSON.stringify(association));
+        res.end(content);
 
     } catch (e) {
 
@@ -68,6 +74,7 @@ export const createAssociation = async (req, res) => {
             const data = JSON.parse(body);
 
             const association = await service.createAssociation(data);
+
 
             res.writeHead(201, {
                 'Content-Type': 'application/json'
@@ -128,16 +135,18 @@ export const updateAssociation = async (req, res, parms) => {
 
 
 export const deleteAssociation = async (req, res, parms) => {
-
+    console.log("entre delete association executer");
+    console.log(parms);
     try {
         const id = parms.id;
 
         const association = await service.deleteAssociation(id);
 
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
+        res.writeHead(302, {
+            'Location': '/associations'
         });
-        res.end(JSON.stringify(association));
+
+        res.end();
     }catch (e) {
        res.writeHead(500, {
             'Content-Type': 'application/json'

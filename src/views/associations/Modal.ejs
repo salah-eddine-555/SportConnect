@@ -1,0 +1,155 @@
+<!-- =========================
+     ADD ACTIVITY MODAL
+========================== -->
+
+<div id="addActivityModal" class="modal" >
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Ajouter une activité</h2>
+                <p>
+                    Ajouter une activité à
+                    <strong><%= association.name %></strong>
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeAddActivityModal"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <form
+            id="activityForm"
+            action="/activities"
+            method="POST"
+        >
+
+            <!-- Association automatique -->
+            <input
+                type="hidden"
+                name="association_id"
+                value="<%= association.id %>"
+            >
+
+
+            <!-- Nom -->
+            <div class="form-group">
+
+                <label for="activityName">
+                    Nom de l'activité
+                </label>
+
+                <input
+                    type="text"
+                    id="activityName"
+                    name="name"
+                    placeholder="Ex: Football"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Capacité -->
+            <div class="form-group">
+
+                <label for="activityCapacity">
+                    Capacité maximale
+                </label>
+
+                <input
+                    type="number"
+                    id="activityCapacity"
+                    name="max_capacite"
+                    min="1"
+                    placeholder="Ex: 20"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Prix -->
+            <div class="form-group">
+
+                <label for="activityPrice">
+                    Prix de base
+                </label>
+
+                <input
+                    type="number"
+                    id="activityPrice"
+                    name="base_price"
+                    min="0"
+                    step="0.01"
+                    placeholder="Ex: 100.00"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Facility -->
+            <div class="form-group">
+
+                <label for="activityFacility">
+                    Facility
+                </label>
+
+                <select
+                    id="activityFacility"
+                    name="facility_id"
+                    required
+                >
+
+                    <option value="">
+                        -- Sélectionner une facility --
+                    </option>
+
+                    <% facilities.forEach(facility => { %>
+
+                        <option value="<%= facility.id %>">
+                            <%= facility.name %>
+                        </option>
+
+                    <% }) %>
+
+                </select>
+
+            </div>
+
+
+            <!-- Actions -->
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary modal-close"
+                    id="cancelAddActivity"
+                >
+                    Annuler
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Ajouter
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

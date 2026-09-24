@@ -2,6 +2,8 @@ import ejs from 'ejs';
 
 
 const  render  = async(view, data = {}) => {
+    console.log('data', data);
+    console.log('view', view);
 
     const body = await ejs.renderFile(`src/views${view}.ejs`, data);
     

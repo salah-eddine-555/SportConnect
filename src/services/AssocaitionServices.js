@@ -1,4 +1,5 @@
 import * as repository from '../repositories/Repository.js';
+import * as AssociationRepo from '../repositories/associationRepository.js';
 
 export const getAllAssociations = () => {
     return repository.findAll('association');
@@ -19,3 +20,9 @@ export const updateAssociation = (id, data) => {
 export const deleteAssociation = (id) => {
     return repository.remove('association', id);
 };
+
+
+export const getActivitiesByAssociation = (id) => {
+
+    return AssociationRepo.findActivitiesAssociation(id);
+}

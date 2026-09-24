@@ -2,6 +2,8 @@ import FindMyWay from 'find-my-way';
 import * as facilitiesController from '../controllers/facilitiesController.js';
 import {getHome} from '../controllers/homeController.js';
 import * as associationController from '../controllers/AssociationController.js';
+import * as activityController from '../controllers/activitieController.js';
+
 
 const router = FindMyWay();
 
@@ -20,7 +22,14 @@ router.get('/associations',associationController.getAssociations);
 router.get('/associations/:id', associationController.getAssociationById);
 router.post('/associations',associationController.createAssociation);
 router.put('/associations/:id',associationController.updateAssociation);
-router.delete('/associations/:id', associationController.deleteAssociation);
+router.post('/associations/:id', associationController.deleteAssociation);
+
+// les routes pour activities 
+router.get('/activities',activityController.getActivities);
+router.get('/activities/:id', activityController.getActivitieById);
+router.post('/activities',activityController.createActivitie);
+router.put( '/activities/:id', activityController.updateActivitie);
+router.post('/activities/:id',  activityController.deleteActivitie);
 
 
 export default router;

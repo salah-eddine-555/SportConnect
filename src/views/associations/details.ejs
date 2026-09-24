@@ -1,0 +1,244 @@
+<div class="association-details">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <div class="details-header">
+
+        <div>
+            <h1>Détails de l'association</h1>
+            <p>
+                Informations générales et activités
+            </p>
+        </div>
+
+        <a
+            href="/associations"
+            class="btn-back"
+        >
+            ← Retour
+        </a>
+
+    </div>
+
+
+    <!-- =========================
+         ASSOCIATION INFORMATION
+    ========================== -->
+    <section class="association-info-card">
+
+        <div class="association-info-header">
+
+            <div>
+                <span class="info-label">
+                    Association
+                </span>
+
+                <h2>
+                    <%= association.name %>
+                </h2>
+            </div>
+
+            <span class="association-id">
+                ID #<%= association.id %>
+            </span>
+
+        </div>
+
+
+        <div class="association-info-grid">
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Email
+                </span>
+
+                <span class="detail-value">
+                    <%= association.email %>
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Adresse
+                </span>
+
+                <span class="detail-value">
+                    <%= association.address %>
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ACTIVITIES
+    ========================== -->
+    <section class="activities-section">
+
+        <!-- Section header -->
+        <div class="section-header">
+
+            <div>
+                <h2>Activités</h2>
+
+                <p>
+                    Les activités appartenant à cette association
+                </p>
+            </div>
+
+
+            <div class="activities-header-actions">
+
+                <span class="activities-count">
+                    <%= activities.length %> activité(s)
+                </span>
+
+                <!-- Ajouter une activité -->
+                <button  class="btn btn-primary addBtn">
+                    + Ajouter une activité
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             NO ACTIVITIES
+        ========================== -->
+        <% if (activities.length === 0) { %>
+
+            <div class="empty-activities">
+
+                <div class="empty-icon">
+                    +
+                </div>
+
+                <h3>
+                    Aucune activité
+                </h3>
+
+                <p>
+                    Cette association n'a pas encore d'activité.
+                </p>
+
+                <button class="btn btn-primary addBtn">
+                    Ajouter une activité
+            </button>
+
+            </div>
+
+
+        <!-- =========================
+             ACTIVITIES LIST
+        ========================== -->
+        <% } else { %>
+            <div class="activities-grid">
+                <% activities.forEach(activity => { %>
+                    <article class="activity-card">
+                        <!-- Activity header -->
+                        <div class="activity-card-header">
+                            <div>
+                                <h3>
+                                    <%= activity.name %>
+                                </h3>
+                            </div>
+
+                            <span class="activity-id">
+                                #<%= activity.id %>
+                            </span>
+
+                        </div>
+                        <!-- Activity information -->
+                        <div class="activity-info">
+
+                            <div class="activity-item">
+
+                                <span class="activity-label">
+                                    Capacité
+                                </span>
+
+                                <span class="activity-value">
+                                    <%= activity.max_capacity %>
+                                    personnes
+                                </span>
+                            </div>
+                            <div class="activity-item">
+
+                                <span class="activity-label">
+                                    Prix
+                                </span>
+                                <span class="activity-value">
+                                    <%= activity.base_price %>
+                                    DH
+                               </span>
+                            </div>
+                            <div class="activity-item">
+
+                                <span class="activity-label">
+                                    Facility
+                                </span>
+
+                                <span class="activity-value">
+                                    <%= activity.facility_id %>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Activity actions -->
+                        <div class="activity-actions">
+
+                            <!-- Voir -->
+                            <a
+                                href="/activities/<%= activity.id %>"
+                                class="btn btn-view"
+                            >
+                                Voir
+                            </a>
+                            <!-- Modifier -->
+                            <a
+                                href="/activities/<%= activity.id %>/edit"
+                                class="btn btn-edit"
+                            >
+                                Modifier
+                            </a>
+
+
+                            <!-- Supprimer -->
+                            <form
+                                action="/activities/<%= activity.id %>"
+                                method="POST"
+                                class="delete-form"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-delete"
+                                >
+                                    Supprimer
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </article>
+
+                <% }) %>
+
+            </div>
+
+        <% } %>
+
+    </section>
+    <%- include('./Modal.ejs') %>
+    <script src="/js/activitie.js"></script>
+</div>
+
