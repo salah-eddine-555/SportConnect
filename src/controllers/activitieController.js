@@ -61,7 +61,7 @@ export const createActivitie = async (req, res) => {
 
         try {
             const data = JSON.parse(body);
-            const activite = await service.createActivitie(data);
+            const activite = await service.createActivite(data);
             res.writeHead(201, {
                 'Content-Type': 'application/json'
             });
@@ -107,10 +107,12 @@ export const updateActivitie = async (req, res, params) => {
 
             res.end(JSON.stringify(activity));
         } catch (e) {
+            // console.log(e.message);return 
             res.writeHead(500, {
                 'Content-Type': 'application/json'
             });
-
+            
+            
             res.end(JSON.stringify({
                 message: e.message
             }));
@@ -130,10 +132,11 @@ export const deleteActivitie = async (req, res, params) => {
                 message: 'Activity not found'
             }));
         }
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
+        res.writeHead(302, {
+               Location: `/associations/${activity.association_id}`
         });
-        res.end(JSON.stringify(activity));
+        res.end();
+
     } catch (e) {
         res.writeHead(500, {
             'Content-Type': 'application/json'

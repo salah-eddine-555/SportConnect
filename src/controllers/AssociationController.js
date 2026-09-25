@@ -109,7 +109,6 @@ export const updateAssociation = async (req, res, parms) => {
     req.on('end', async () => {
 
         try {
-
             const data = JSON.parse(body);
 
             const association = await service.updateAssociation(id, data);
@@ -135,12 +134,17 @@ export const updateAssociation = async (req, res, parms) => {
 
 
 export const deleteAssociation = async (req, res, parms) => {
-    console.log("entre delete association executer");
-    console.log(parms);
     try {
         const id = parms.id;
+    
+        const activitie = await service.deleteAssociation(id);
+        if(!activitie){
 
-        const association = await service.deleteAssociation(id);
+            res.writeHead(404, {
+                'Text-Content': 'application/json'
+            });
+            res.end(JSON.strigify({message: 'cette activitie not found '}))
+        }
 
         res.writeHead(302, {
             'Location': '/associations'

@@ -51,7 +51,7 @@ editBtns.forEach(btn => {
 
     btn.addEventListener("click", () => {
 
-        modal.style.display = "flex";
+        Modal.style.display = "flex";
 
         editingId = btn.dataset.id;
         activityName.value = btn.dataset.name;
@@ -72,10 +72,10 @@ activityForm.addEventListener("submit", async(e)=> {
 
     const data = {
         name: activityName.value,
-        max_capacity: activityCapacity.value,
-        base_price: activityPrice.value,
-        association_id: associationId.value,
-        facility_id: activityFacility.value
+        max_capacite: Number(activityCapacity.value),
+        base_price: Number(activityPrice.value),
+        association_id: Number(associationId.value),
+        facility_id: Number(activityFacility.value)
     }
 
 
@@ -83,7 +83,7 @@ activityForm.addEventListener("submit", async(e)=> {
         let res;
 
         if(editingId === null){
-
+            console.log(data);
             res = await fetch("/activities", {
                 method: "POST",
                 headers:{

@@ -9,7 +9,7 @@
         <div class="modal-header">
 
             <div>
-                <h2>Ajouter une activité</h2>
+                <h2 id="activityModalTitle" >Ajouter une activité</h2>
                 <p>
                     Ajouter une activité à
                     <strong><%= association.name %></strong>
@@ -37,6 +37,7 @@
             <input
                 type="hidden"
                 name="association_id"
+                id="activityAssociationId"
                 value="<%= association.id %>"
             >
 
@@ -142,6 +143,7 @@
                 <button
                     type="submit"
                     class="btn btn-primary"
+                    id="activitySubmit"
                 >
                     Ajouter
                 </button>

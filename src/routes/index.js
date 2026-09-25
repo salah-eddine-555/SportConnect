@@ -3,6 +3,7 @@ import * as facilitiesController from '../controllers/facilitiesController.js';
 import {getHome} from '../controllers/homeController.js';
 import * as associationController from '../controllers/AssociationController.js';
 import * as activityController from '../controllers/activitieController.js';
+import * as famillesController from '../controllers/familleController.js';
 
 
 const router = FindMyWay();
@@ -30,6 +31,12 @@ router.get('/activities/:id', activityController.getActivitieById);
 router.post('/activities',activityController.createActivitie);
 router.put( '/activities/:id', activityController.updateActivitie);
 router.post('/activities/:id',  activityController.deleteActivitie);
+
+//les routes pour la gestion des famillies
+router.get("/familles", famillesController.getFamilles);
+router.get("/familles/:id", famillesController.getFamilleById);
+router.post("/familles", famillesController.createFamille);
+
 
 
 export default router;
