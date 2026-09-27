@@ -18,6 +18,5 @@ export const getHome = async(req, res) => {
         });
 
         res.end(`Error : ${e.message}`);
-
     }
 }

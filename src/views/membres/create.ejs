@@ -1,0 +1,183 @@
+<div class="membres-page">
+
+    <!-- Header -->
+    <div class="page-header">
+        <div>
+            <h1>Gestion des membres</h1>
+            <p>Inscription et gestion des membres</p>
+        </div>
+    </div>
+
+
+    <div class="membres-content">
+
+        <!-- ========================= -->
+        <!-- FORMULAIRE -->
+        <!-- ========================= -->
+
+        <section class="member-form-card">
+
+            <div class="card-header">
+                <div>
+                    <h2>Inscrire un membre</h2>
+                    <p>Ajouter un nouveau membre</p>
+                </div>
+            </div>
+
+            <form action="/membres" method="POST" class="member-form">
+
+                <!-- Prénom -->
+                <div class="form-group">
+                    <label for="first_name">
+                        Prénom
+                    </label>
+
+                    <input type="text" id="first_name" name="first_name" placeholder="Ex: Salah" required>
+                </div>
+
+
+                <!-- Nom -->
+                <div class="form-group">
+                    <label for="last_name">
+                        Nom
+                    </label>
+
+                    <input type="text" id="last_name" name="last_name" placeholder="Ex: Alaoui" required>
+                </div>
+
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input type="email" id="email" name="email" placeholder="exemple@gmail.com" required>
+                </div>
+
+
+                <!-- Date de naissance -->
+                <div class="form-group">
+                    <label for="birth_date">
+                        Date de naissance
+                    </label>
+
+                    <input type="date" id="birth_date" name="birth_date" required>
+                </div>
+
+
+                <!-- Famille -->
+                <div class="form-group">
+
+                    <label for="famille_id">
+                        Famille
+                    </label>
+
+                    <select id="famille_id" name="famille_id">
+                        <option value="">
+                            -- Choisir une famille --
+                        </option>
+
+                        <% familles.forEach(famille=> { %>
+
+                            <option value="<%= famille.id %>">
+                                <%= famille.name %>
+                            </option>
+
+                            <% }) %>
+
+                                <option value="new">
+                                    + Créer une nouvelle famille
+                                </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Nouvelle famille -->
+                <div class="form-group" id="newFamilyGroup" style="display: none;">
+
+                    <label for="new_family_name">
+                        Nom de la nouvelle famille
+                    </label>
+
+                    <input type="text" id="new_family_name" name="new_family_name" placeholder="Ex: Famille Alaoui">
+
+                </div>
+            
+
+
+
+                <!-- Bouton -->
+                <button type="submit" class="btn btn-primary member-submit">
+                    Inscrire le membre
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- LISTE DES MEMBRES -->
+        <!-- ========================= -->
+
+        <section class="members-list-card">
+
+            <div class="card-header">
+                <div>
+                    <h2>Membres</h2>
+
+                    <p>
+                        <%= membres.length %> membre(s)
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="members-list">
+
+                <% if (membres.length===0) { %>
+
+                    <div class="empty-state">
+                        <p>Aucun membre enregistré.</p>
+                    </div>
+
+                    <% } else { %>
+
+                        <% membres.forEach(membre=> { %>
+
+                            <div class="member-item">
+
+                                <div class="member-avatar">
+                                    <%= membre.first_name.charAt(0).toUpperCase() %>
+                                </div>
+
+                                <div class="member-info">
+
+                                    <h3>
+                                        <%= membre.first_name %>
+                                            <%= membre.last_name %>
+                                    </h3>
+
+                                    <p>
+                                        <%= membre.email %>
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <% }) %>
+
+                                <% } %>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="/js/membres.js"></script>
+</div>

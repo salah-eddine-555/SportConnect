@@ -1599,3 +1599,191 @@ RESPONSIVE
         width: 100%;
     }
 }
+/* =========================
+   Membres
+========================= */
+
+.membres-page {
+    padding: 30px;
+}
+
+
+/* Header */
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.page-header p {
+    margin-top: 6px;
+    color: #777;
+}
+
+
+/* Layout */
+
+.membres-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+
+/* Cards */
+
+.member-form-card,
+.members-list-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+
+/* Card header */
+
+.card-header {
+    margin-bottom: 25px;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.card-header p {
+    margin: 5px 0 0;
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* Form */
+
+.member-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #2563eb;
+}
+
+
+/* Button */
+
+.member-submit {
+    margin-top: 5px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* Members list */
+
+.members-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Member */
+
+.member-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.member-item:last-child {
+    border-bottom: none;
+}
+
+
+/* Avatar */
+
+.member-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #eef2ff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+}
+
+
+/* Info */
+
+.member-info h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.member-info p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #777;
+}
+
+
+/* Empty */
+
+.empty-state {
+    padding: 30px 10px;
+    text-align: center;
+    color: #888;
+}
+
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+    .membres-content {
+        grid-template-columns: 1fr;
+    }
+
+    .membres-page {
+        padding: 20px;
+    }
+}

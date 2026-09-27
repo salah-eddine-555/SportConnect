@@ -2,7 +2,7 @@ import { pool } from "../config/db.js";
 
 const tableNames = [
     'familles',
-    'members',
+    'membres',
     'activities',
     'facilities',
     'association',
@@ -15,29 +15,30 @@ const tableNames = [
 
 export const findAll = async (table) => {
 
-    if(!tableNames.includes(table)){
+    if (!tableNames.includes(table)) {
         throw new Error("Invalid table name !")
     }
 
-    const result = await  pool.query(`SELECT * FROM ${table}`);
+    const result = await pool.query(`SELECT * FROM ${table}`);
     // console.log("the result first query to database ", result);  return ;
     return result.rows;
 }
 
-export const findById = async(table, id) => {
-    
-    if(!tableNames.includes(table)){ throw new Error("Invalid table name !")};
+export const findById = async (table, id) => {
+
+    if (!tableNames.includes(table)) { throw new Error("Invalid table name !") };
 
     const query = `SELECT * FROM ${table} where id = $1`;
 
     const result = await pool.query(query, [id]);
 
     return result.rows[0];
+
 }
 
 export const create = async (table, data) => {
 
-    if(!tableNames.includes(table)){ throw new Error("Invalid table name !")}
+    if (!tableNames.includes(table)) { throw new Error("Invalid table name !") }
 
     const columnsTable = await pool.query(`
         SELECT column_name FROM information_schema.columns
@@ -45,21 +46,25 @@ export const create = async (table, data) => {
         AND column_name != 'id'
         ORDER BY ordinal_position;
         `, [table]);
-    
+
     const columns = columnsTable.rows.map(row => row.column_name);
 
     const values = columns.map(c => data[c]);
+
+    console.log("========== CREATE ==========");
+    console.log("table :", table);
+    console.log("data :", data);
+    console.log("columns :", columns);
+    console.log("values :", values);
+    console.log("============================");
 
     if (values.some(value => value === undefined)) {
         throw new Error("Errure mismatching data !");
     }
 
-
-    // if(columns.length !== data.length){ throw new Error("Number of data does not match columns !")}
-    
     const champs = values.map((_, index) => `$${index + 1}`);
 
-    const query =  `
+    const query = `
         INSERT INTO ${table} (${columns.join(", ")})
         VALUES (${champs.join(", ")})
         RETURNING *;
@@ -73,9 +78,9 @@ export const create = async (table, data) => {
 
 
 export const update = async (table, id, data) => {
-    
-    if(!tableNames.includes(table)){ throw new Error("Invalid table name !")}
-    
+
+    if (!tableNames.includes(table)) { throw new Error("Invalid table name !") }
+
     const columnsTable = await pool.query(`
         SELECT column_name FROM information_schema.columns
         WHERE table_name= $1 AND column_name != 'id'
@@ -86,7 +91,7 @@ export const update = async (table, id, data) => {
 
     const valuesData = columns.map(c => data[c]);
 
-    if(valuesData.some(v => v === undefined)){
+    if (valuesData.some(v => v === undefined)) {
         throw new Error("Erreur");
     }
 
@@ -100,18 +105,18 @@ export const update = async (table, id, data) => {
 
     const query = `UPDATE ${table} SET ${setValues.join(", ")}
                     WHERE id = $${valuesData.length + 1} RETURNING  *; `;
-    
+
     const result = await pool.query(query, values)
 
     return result.rows[0];
 }
 
 
-export const remove = async(table, id) => {
-    
-    if(!tableNames.includes(table)){throw new Error("Invalid table name !")}
+export const remove = async (table, id) => {
 
-    const query =  `DELETE FROM ${table} WHERE id = $1 RETURNING *; `;
+    if (!tableNames.includes(table)) { throw new Error("Invalid table name !") }
+
+    const query = `DELETE FROM ${table} WHERE id = $1 RETURNING *; `;
 
     const result = await pool.query(query, [id]);
 

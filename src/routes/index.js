@@ -4,6 +4,7 @@ import {getHome} from '../controllers/homeController.js';
 import * as associationController from '../controllers/AssociationController.js';
 import * as activityController from '../controllers/activitieController.js';
 import * as famillesController from '../controllers/familleController.js';
+import * as membresController from '../controllers/membresController.js';
 
 
 const router = FindMyWay();
@@ -36,6 +37,10 @@ router.post('/activities/:id',  activityController.deleteActivitie);
 router.get("/familles", famillesController.getFamilles);
 router.get("/familles/:id", famillesController.getFamilleById);
 router.post("/familles", famillesController.createFamille);
+
+//Route pour l inscription d'une membre 
+router.get("/membres", membresController.getCreateMembre);
+router.post("/membres", membresController.createMembre);
 
 
 

@@ -1,14 +1,11 @@
-import * as service from "../services/famillesService.js";
-import { render } from "../utils/render.js";
+import * as serviceFamily from "../services/famillesService.js";
+import render from '../utils/render.js';
 
-
-import * as service from "../services/famillesService.js";
-import { render } from "../utils/render.js";
 
 export const getFamilles = async (req, res) => {
     try {
 
-        const familles = await service.getFamilles();
+        const familles = await serviceFamily.getFamilles();
 
         await render("/familles/index", {
             familles
@@ -71,7 +68,7 @@ export const getFamilleById = async (req, res, params) => {
 
         const id = params.id;
 
-        const famille = await service.getFamilleById(id);
+        const famille = await serviceFamily.getFamilleById(id);
 
         if (!famille) {
 
